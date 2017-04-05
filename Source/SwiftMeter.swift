@@ -15,62 +15,80 @@ fileprivate var denom: UInt64?
 
 struct StopWatch {
 
-    let startDate: NSDate
+    var startTimestamp: UInt64 = 0
+    var stopTimestamp: UInt64 = 0
 
-    /// Time elapsed since start of the stopwatch
-    var elapsedTime: TimeValue?
-
-    init(with start: NSDate) {
+    init() {
         mach_timebase_info(&timebase_info)
         numer = UInt64(timebase_info.numer)
         denom = UInt64(timebase_info.denom)
-        startDate = start
-    }
-
-    init() {
-        self.init(with: NSDate())
     }
 
     /// Start a stopwatch instance
-    func start() {
-        //TODO
+    mutating func start() {
+        startTimestamp = mach_absolute_time()
     }
 
     /// Stops countdown. The result is stored
-    func stop() -> TimeValue {
-
-        //TODO
+    mutating func stop() -> TimeValue {
+        stopTimestamp = mach_absolute_time()
         return TimeValue(1)
+    }
+    
+    /// Time elapsed since start of the stopwatch
+    var elapsedTime: TimeValue {
+        guard startTimestamp > 0 && stopTimestamp > 0 else {
+            return TimeValue.timeValueZero
+        }
+        
+        let elapsed = ((stopTimestamp - startTimestamp) * numer!) / denom!
+        
+        return TimeValue(value: elapsed, type: .nanosecond)
     }
 }
 
 
 /// Time representation in seconds, milliseconds, nanoseconds
-enum TimeType {
-    case nanoseconds
-    case milliseconds
-    case seconds
+enum TimeUnit {
+    case nanosecond, microsecond, millisecond, second
 }
 
 /// Time value with type (representation). The milliseconds is default
 struct TimeValue {
 
-    var value = 0
-    var type = TimeType.milliseconds
+    static let timeValueZero = TimeValue(0)
+    
+    var value: UInt64 = 0
+    var type = TimeUnit.millisecond
 
-    init(value: Int, type: TimeType) {
+    init(value: UInt64, type: TimeUnit) {
         self.value = value
         self.type = type
     }
 
-    init(_ value: Int) {
+    init(_ value: UInt64) {
         self.value = value
-        self.type = .milliseconds
+        self.type = .millisecond
     }
-
+    
+    func valueFor(unit: TimeUnit) -> Double {
+        switch unit {
+        case .nanosecond:
+            return Double(value)
+        case .microsecond:
+            return Double(value) / 1_000
+        case .millisecond:
+            return Double(value) / 1_000_000
+        case .second:
+            return Double(value) / 1_000_000_000
+        default:
+            return 0
+        }
+    }
+    
 }
 
-
+/// Log functions controlled by SwiftMeter
 class SwiftMeter {
 
     func startTimer() -> StopWatch {
@@ -79,16 +97,12 @@ class SwiftMeter {
 
 }
 
+/// Benchmark protocol which is core for this class
 protocol SwiftMeterable {
     func executionTimeInterval( block: @autoclosure () -> ()) -> CFTimeInterval
 }
 
 extension SwiftMeterable {
-
-    init() {
-
-        self.init()
-    }
 
     func executionTimeInterval( block: @autoclosure () -> ()) -> CFTimeInterval {
         let start = CACurrentMediaTime()
@@ -96,5 +110,22 @@ extension SwiftMeterable {
         block();
         let end = CACurrentMediaTime()
         return end - start
+    }
+}
+
+struct MeterPrint {
+    
+    static var enabledLogging = true
+    
+    public static func print(_ value: String) {
+        if enabledLogging {
+            print(value)
+        }
+    }
+}
+
+extension NSObject {
+    public static func printMeter(_ value: String) {
+        MeterPrint.print(value)
     }
 }
