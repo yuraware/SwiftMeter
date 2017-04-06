@@ -73,19 +73,23 @@ struct TimeValue {
     
     func valueFor(unit: TimeUnit) -> Double {
         switch unit {
-        case .nanosecond:
-            return Double(value)
-        case .microsecond:
-            return Double(value) / 1_000
-        case .millisecond:
-            return Double(value) / 1_000_000
-        case .second:
-            return Double(value) / 1_000_000_000
-        default:
-            return 0
+            case .nanosecond:
+                return Double(value)
+            case .microsecond:
+                return Double(value) / 1_000
+            case .millisecond:
+                return Double(value) / 1_000_000
+            case .second:
+                return Double(value) / 1_000_000_000
         }
     }
     
+}
+
+extension TimeValue: Equatable {
+    static func == (lhs: TimeValue, rhs: TimeValue) -> Bool {
+        return lhs.value == rhs.value
+    }
 }
 
 /// Log functions controlled by SwiftMeter
