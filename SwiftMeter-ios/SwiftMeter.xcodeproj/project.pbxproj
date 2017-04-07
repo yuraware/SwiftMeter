@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81D82FD31E983C3E0016568E /* SwiftMeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D82FD21E983C3E0016568E /* SwiftMeterTests.swift */; };
+		81D82FDA1E983F5D0016568E /* SwiftMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EACFE11E8C5CF600741057 /* SwiftMeter.swift */; };
 		81EACFCF1E8C5CA900741057 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EACFCE1E8C5CA900741057 /* AppDelegate.swift */; };
 		81EACFD11E8C5CA900741057 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EACFD01E8C5CA900741057 /* ViewController.swift */; };
 		81EACFD41E8C5CA900741057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81EACFD21E8C5CA900741057 /* Main.storyboard */; };
@@ -15,7 +17,20 @@
 		81EACFE21E8C5CF600741057 /* SwiftMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EACFE11E8C5CF600741057 /* SwiftMeter.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		81D82FD51E983C3E0016568E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81EACFC31E8C5CA900741057 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 81EACFCA1E8C5CA900741057;
+			remoteInfo = SwiftMeter;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		81D82FD01E983C3D0016568E /* SwiftMeterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMeterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		81D82FD21E983C3E0016568E /* SwiftMeterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMeterTests.swift; sourceTree = "<group>"; };
+		81D82FD41E983C3E0016568E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81EACFCB1E8C5CA900741057 /* SwiftMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81EACFCE1E8C5CA900741057 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81EACFD01E8C5CA900741057 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,6 +42,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		81D82FCD1E983C3D0016568E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81EACFC81E8C5CA900741057 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -37,11 +59,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81D82FD11E983C3E0016568E /* SwiftMeterTests */ = {
+			isa = PBXGroup;
+			children = (
+				81D82FD21E983C3E0016568E /* SwiftMeterTests.swift */,
+				81D82FD41E983C3E0016568E /* Info.plist */,
+			);
+			path = SwiftMeterTests;
+			sourceTree = "<group>";
+		};
 		81EACFC21E8C5CA900741057 = {
 			isa = PBXGroup;
 			children = (
 				81EACFE01E8C5CB400741057 /* Source */,
 				81EACFCD1E8C5CA900741057 /* SwiftMeter */,
+				81D82FD11E983C3E0016568E /* SwiftMeterTests */,
 				81EACFCC1E8C5CA900741057 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				81EACFCB1E8C5CA900741057 /* SwiftMeter.app */,
+				81D82FD01E983C3D0016568E /* SwiftMeterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +111,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		81D82FCF1E983C3D0016568E /* SwiftMeterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81D82FD91E983C3E0016568E /* Build configuration list for PBXNativeTarget "SwiftMeterTests" */;
+			buildPhases = (
+				81D82FCC1E983C3D0016568E /* Sources */,
+				81D82FCD1E983C3D0016568E /* Frameworks */,
+				81D82FCE1E983C3D0016568E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81D82FD61E983C3E0016568E /* PBXTargetDependency */,
+			);
+			name = SwiftMeterTests;
+			productName = SwiftMeterTests;
+			productReference = 81D82FD01E983C3D0016568E /* SwiftMeterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		81EACFCA1E8C5CA900741057 /* SwiftMeter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81EACFDD1E8C5CA900741057 /* Build configuration list for PBXNativeTarget "SwiftMeter" */;
@@ -105,6 +156,12 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Yurii Kobets";
 				TargetAttributes = {
+					81D82FCF1E983C3D0016568E = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 7LTAF44D36;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 81EACFCA1E8C5CA900741057;
+					};
 					81EACFCA1E8C5CA900741057 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 7LTAF44D36;
@@ -126,11 +183,19 @@
 			projectRoot = "";
 			targets = (
 				81EACFCA1E8C5CA900741057 /* SwiftMeter */,
+				81D82FCF1E983C3D0016568E /* SwiftMeterTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		81D82FCE1E983C3D0016568E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81EACFC91E8C5CA900741057 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,6 +209,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		81D82FCC1E983C3D0016568E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81D82FDA1E983F5D0016568E /* SwiftMeter.swift in Sources */,
+				81D82FD31E983C3E0016568E /* SwiftMeterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81EACFC71E8C5CA900741057 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -155,6 +229,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		81D82FD61E983C3E0016568E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 81EACFCA1E8C5CA900741057 /* SwiftMeter */;
+			targetProxy = 81D82FD51E983C3E0016568E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		81EACFD21E8C5CA900741057 /* Main.storyboard */ = {
@@ -176,6 +258,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		81D82FD71E983C3E0016568E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 7LTAF44D36;
+				INFOPLIST_FILE = SwiftMeterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftMeter.ios.SwiftMeterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMeter.app/SwiftMeter";
+			};
+			name = Debug;
+		};
+		81D82FD81E983C3E0016568E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 7LTAF44D36;
+				INFOPLIST_FILE = SwiftMeterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwiftMeter.ios.SwiftMeterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMeter.app/SwiftMeter";
+			};
+			name = Release;
+		};
 		81EACFDB1E8C5CA900741057 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -298,6 +408,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		81D82FD91E983C3E0016568E /* Build configuration list for PBXNativeTarget "SwiftMeterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81D82FD71E983C3E0016568E /* Debug */,
+				81D82FD81E983C3E0016568E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		81EACFC61E8C5CA900741057 /* Build configuration list for PBXProject "SwiftMeter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

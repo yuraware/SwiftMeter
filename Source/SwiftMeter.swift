@@ -59,7 +59,12 @@ struct TimeValue {
     static let timeValueZero = TimeValue(0)
     
     var value: UInt64 = 0
+
     var type = TimeUnit.millisecond
+
+    var doubleValue: Double {
+        return Double(value)
+    }
 
     init(value: UInt64, type: TimeUnit) {
         self.value = value
