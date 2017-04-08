@@ -31,6 +31,10 @@ class SwiftMeterTests: XCTestCase {
         XCTAssertTrue(valueNanos.doubleValue != valueMicros.valueFor(unit: .nanosecond), "Microsecons wrong conversion")
         XCTAssertTrue(valueNanos.doubleValue != valueMillis.valueFor(unit: .nanosecond), "Milliseconds wrong conversion")
         XCTAssertTrue(valueNanos.doubleValue != valueSeconds.valueFor(unit: .nanosecond), "Seconds wrong conversion")
+
+        XCTAssertTrue(valueNanos != valueMicros, "Microsecons wrong conversion")
+        XCTAssertTrue(valueNanos != valueMillis, "Milliseconds wrong conversion")
+        XCTAssertTrue(valueNanos != valueSeconds, "Seconds wrong conversion")
     }
 
     func testExample() {
