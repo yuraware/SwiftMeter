@@ -58,7 +58,7 @@ struct TimeValue {
 
     static let timeValueZero = TimeValue(0)
     
-    var value: UInt64 = 0
+    private var value: UInt64 = 0
 
     var type = TimeUnit.millisecond
 
@@ -93,7 +93,7 @@ struct TimeValue {
 
 extension TimeValue: Equatable {
     static func == (lhs: TimeValue, rhs: TimeValue) -> Bool {
-        return lhs.value == rhs.value
+        return lhs.valueFor(unit: .nanosecond) == rhs.valueFor(unit: .nanosecond)
     }
 }
 
