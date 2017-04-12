@@ -21,12 +21,11 @@ class SwiftMeterTests: XCTestCase {
         super.tearDown()
     }
 
-    func testValues() {
+    func testValuesEquals() {
         let valueNanos = TimeValue.init(value: 1_000_000_000, type: .nanosecond)
         let valueMicros = TimeValue.init(value: 1_000_000, type: .microsecond)
         let valueMillis = TimeValue.init(value: 1_000, type: .millisecond)
         let valueSeconds = TimeValue.init(value: 1, type: .second)
-
 
         XCTAssertTrue(valueNanos.doubleValue != valueMicros.valueFor(unit: .nanosecond), "Microsecons wrong conversion")
         XCTAssertTrue(valueNanos.doubleValue != valueMillis.valueFor(unit: .nanosecond), "Milliseconds wrong conversion")
@@ -35,6 +34,18 @@ class SwiftMeterTests: XCTestCase {
         XCTAssertTrue(valueNanos != valueMicros, "Microsecons wrong conversion")
         XCTAssertTrue(valueNanos != valueMillis, "Milliseconds wrong conversion")
         XCTAssertTrue(valueNanos != valueSeconds, "Seconds wrong conversion")
+    }
+
+    func testValuesCompares() {
+        let value1 = TimeValue.init(value: 1_000, type: .nanosecond)
+        let value2 = TimeValue.init(value: 1_001, type: .nanosecond)
+        let value3 = TimeValue.init(value: 1_002, type: .nanosecond)
+        let value4 = TimeValue.init(value: 1_003, type: .nanosecond)
+
+        XCTAssertTrue(value1 < value2)
+        XCTAssertTrue(value3 > value2)
+        XCTAssertTrue(value3 <= value4)
+        XCTAssertTrue(value4 >= value3)
     }
 
     func testExample() {

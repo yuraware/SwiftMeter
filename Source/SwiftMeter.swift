@@ -62,6 +62,7 @@ struct TimeValue {
 
     var type = TimeUnit.millisecond
 
+    /// respresents value in nanoseconds
     var doubleValue: Double {
         return Double(value)
     }
@@ -94,6 +95,24 @@ struct TimeValue {
 extension TimeValue: Equatable {
     static func == (lhs: TimeValue, rhs: TimeValue) -> Bool {
         return lhs.valueFor(unit: .nanosecond) == rhs.valueFor(unit: .nanosecond)
+    }
+}
+
+extension TimeValue: Comparable {
+    public static func <(lhs: TimeValue, rhs: TimeValue) -> Bool {
+        return lhs.doubleValue < rhs.doubleValue
+    }
+
+    public static func <=(lhs: TimeValue, rhs: TimeValue) -> Bool {
+        return lhs.doubleValue <= rhs.doubleValue
+    }
+
+    public static func >=(lhs: TimeValue, rhs: TimeValue) -> Bool {
+        return lhs.doubleValue >= rhs.doubleValue
+    }
+
+    public static func >(lhs: TimeValue, rhs: TimeValue) -> Bool{
+        return lhs.doubleValue > rhs.doubleValue
     }
 }
 
