@@ -15,13 +15,20 @@ fileprivate var denom: UInt64?
 
 struct StopWatch {
 
-    var startTimestamp: UInt64 = 0
-    var stopTimestamp: UInt64 = 0
+    fileprivate var startTimestamp: UInt64 = 0
+    fileprivate var stopTimestamp: UInt64 = 0
+
+    fileprivate var tag: String?
 
     init() {
         mach_timebase_info(&timebase_info)
         numer = UInt64(timebase_info.numer)
         denom = UInt64(timebase_info.denom)
+    }
+
+    init(tag: String?) {
+        self.init()
+        self.tag = tag
     }
 
     /// Start a stopwatch instance
@@ -60,7 +67,7 @@ struct TimeValue {
     
     private var value: UInt64 = 0
 
-    var type = TimeUnit.millisecond
+    var type = TimeUnit.nanosecond
 
     /// respresents value in nanoseconds
     var doubleValue: Double {
@@ -74,7 +81,7 @@ struct TimeValue {
 
     init(_ value: UInt64) {
         self.value = value
-        self.type = .millisecond
+        self.type = .nanosecond
     }
     
     func valueFor(unit: TimeUnit) -> Double {
@@ -122,7 +129,6 @@ class SwiftMeter {
     func startTimer() -> StopWatch {
         return StopWatch()
     }
-
 }
 
 /// Benchmark protocol which is core for this class

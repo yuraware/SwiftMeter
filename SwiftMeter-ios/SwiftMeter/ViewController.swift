@@ -10,9 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var stopwatch = StopWatch()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        stopwatch.start()
+        sleep(2)
+        _ = stopwatch.stop()
+        print("Stopwatch counted \(stopwatch.elapsedTime.valueFor(unit: .second))")
+
     }
 
     override func didReceiveMemoryWarning() {
