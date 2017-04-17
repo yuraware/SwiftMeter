@@ -18,15 +18,7 @@ class ViewController: UIViewController {
         stopwatch.start()
         sleep(2)
         _ = stopwatch.stop()
-        print("Stopwatch counted \(stopwatch.elapsedTime.valueFor(unit: .second))")
-
+        print(stopwatch.formattedTime(unit: .second))
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 

@@ -49,8 +49,14 @@ struct StopWatch {
         }
         
         let elapsed = ((stopTimestamp - startTimestamp) * numer!) / denom!
-        
         return TimeValue(value: elapsed, type: .nanosecond)
+    }
+
+    func formattedTime(unit: TimeUnit) -> String {
+        let elapsedTime = self.elapsedTime
+        let formattedTime = elapsedTime.valueFor(unit: unit)
+        let tag = self.tag ?? "\(startTimestamp)"
+        return "[Stopwatch - \(tag)] time elapsed - \(formattedTime) \(unit.unitName())"
     }
 }
 
@@ -58,20 +64,30 @@ struct StopWatch {
 /// Time representation in seconds, milliseconds, nanoseconds
 enum TimeUnit {
     case nanosecond, microsecond, millisecond, second
+
+    func unitName() -> String {
+        switch self {
+            case .nanosecond: return "nanoseconds"
+            case .microsecond: return "microseconds"
+            case .millisecond: return "milliseconds"
+            case .second: return "seconds"
+        }
+    }
 }
 
 /// Time value with type (representation). The milliseconds is default
 struct TimeValue {
 
     static let timeValueZero = TimeValue(0)
-    
+
+    /// value in nanoseconds
     private var value: UInt64 = 0
 
     var type = TimeUnit.nanosecond
 
     /// respresents value in nanoseconds
-    var doubleValue: Double {
-        return Double(value)
+    var nanoseconds: UInt64 {
+        return value
     }
 
     init(value: UInt64, type: TimeUnit) {
@@ -101,25 +117,25 @@ struct TimeValue {
 
 extension TimeValue: Equatable {
     static func == (lhs: TimeValue, rhs: TimeValue) -> Bool {
-        return lhs.valueFor(unit: .nanosecond) == rhs.valueFor(unit: .nanosecond)
+        return lhs.nanoseconds == rhs.nanoseconds
     }
 }
 
 extension TimeValue: Comparable {
     public static func <(lhs: TimeValue, rhs: TimeValue) -> Bool {
-        return lhs.doubleValue < rhs.doubleValue
+        return lhs.nanoseconds < rhs.nanoseconds
     }
 
     public static func <=(lhs: TimeValue, rhs: TimeValue) -> Bool {
-        return lhs.doubleValue <= rhs.doubleValue
+        return lhs.nanoseconds <= rhs.nanoseconds
     }
 
     public static func >=(lhs: TimeValue, rhs: TimeValue) -> Bool {
-        return lhs.doubleValue >= rhs.doubleValue
+        return lhs.nanoseconds >= rhs.nanoseconds
     }
 
     public static func >(lhs: TimeValue, rhs: TimeValue) -> Bool{
-        return lhs.doubleValue > rhs.doubleValue
+        return lhs.nanoseconds > rhs.nanoseconds
     }
 }
 
