@@ -27,9 +27,9 @@ class SwiftMeterTests: XCTestCase {
         let valueMillis = TimeValue.init(value: 1_000, type: .millisecond)
         let valueSeconds = TimeValue.init(value: 1, type: .second)
 
-        XCTAssertTrue(valueNanos.doubleValue != valueMicros.valueFor(unit: .nanosecond), "Microsecons wrong conversion")
-        XCTAssertTrue(valueNanos.doubleValue != valueMillis.valueFor(unit: .nanosecond), "Milliseconds wrong conversion")
-        XCTAssertTrue(valueNanos.doubleValue != valueSeconds.valueFor(unit: .nanosecond), "Seconds wrong conversion")
+        XCTAssertTrue(valueNanos.valueFor(unit: .nanosecond) != valueMicros.valueFor(unit: .nanosecond), "Microsecons wrong conversion")
+        XCTAssertTrue(valueNanos.valueFor(unit: .nanosecond) != valueMillis.valueFor(unit: .nanosecond), "Milliseconds wrong conversion")
+        XCTAssertTrue(valueNanos.valueFor(unit: .nanosecond) != valueSeconds.valueFor(unit: .nanosecond), "Seconds wrong conversion")
 
         XCTAssertTrue(valueNanos != valueMicros, "Microsecons wrong conversion")
         XCTAssertTrue(valueNanos != valueMillis, "Milliseconds wrong conversion")

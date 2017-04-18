@@ -31,6 +31,10 @@ struct StopWatch {
         self.tag = tag
     }
 
+    init(_ tag: String?) {
+        self.init(tag: tag)
+    }
+
     /// Start a stopwatch instance
     mutating func start() {
         startTimestamp = mach_absolute_time()

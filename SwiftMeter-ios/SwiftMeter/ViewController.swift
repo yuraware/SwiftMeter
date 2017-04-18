@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var stopwatch = StopWatch()
+    var stopwatch = StopWatch("sleep timer")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         sleep(2)
         _ = stopwatch.stop()
         print(stopwatch.formattedTime(unit: .second))
+
     }
 }
 
