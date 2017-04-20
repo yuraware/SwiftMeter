@@ -17,9 +17,14 @@ class ViewController: UIViewController {
 
         stopwatch.start()
         sleep(2)
+        _ = stopwatch.split("first split")
+        sleep(1)
+        _ = stopwatch.split()
+        sleep(3)
+        _ = stopwatch.split("thirs split")
         _ = stopwatch.stop()
         print(stopwatch.formattedTime(unit: .second))
-
+        print("splits \(stopwatch.activeSplits)")
     }
 }
 
