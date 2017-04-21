@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         _ = stopwatch.split("thirs split")
         _ = stopwatch.stop()
         print(stopwatch.formattedTime(unit: .second))
-        print("splits \(stopwatch.activeSplits)")
+        print("splits \(stopwatch.activeSplits(unit: .second))")
     }
 }
 

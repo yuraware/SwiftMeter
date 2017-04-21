@@ -16,6 +16,7 @@ fileprivate var denom: UInt64?
 struct StopWatch {
 
     typealias TimeEvent = (String, TimeValue)
+    typealias TimeEventDouble = (String, Double)
 
     fileprivate var startTimestamp: UInt64 = 0
     fileprivate var stopTimestamp: UInt64 = 0
@@ -49,16 +50,12 @@ struct StopWatch {
         return TimeValue(stopTimestamp)
     }
 
-    mutating func split(_ eventTag: String?) -> TimeValue {
+    mutating func split(_ eventTag: String? = nil) -> TimeValue {
         let splitTime = currentTimeValue()
 
         let tag = eventTag ?? "\(splitTime.valueFor(unit: .millisecond))"
         self.splits.append((tag, splitTime))
         return splitTime
-    }
-
-    mutating func split() -> TimeValue {
-        return self.split(nil)
     }
 
     func stepTime(_ eventTag: String) -> TimeValue {
@@ -79,8 +76,8 @@ struct StopWatch {
         return TimeValue(value: elapsed, type: .nanosecond)
     }
 
-    var activeSplits: [TimeEvent] {
-        return splits
+    func activeSplits(unit: TimeUnit = .nanosecond) -> [TimeEventDouble] {
+        return splits.map { ($0, $1.valueFor(unit: .nanosecond)) }
     }
 
     func formattedTime(unit: TimeUnit) -> String {
