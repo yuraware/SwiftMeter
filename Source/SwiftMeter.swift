@@ -51,9 +51,8 @@ struct StopWatch {
     }
 
     mutating func split(_ eventTag: String? = nil) -> TimeValue {
-        let splitTime = currentTimeValue()
-
-        let tag = eventTag ?? "\(splitTime.valueFor(unit: .millisecond))"
+        let splitTime = elapsedTime(start: startTimestamp, end: currentTimeNanoseconds())
+        let tag = eventTag ?? "Split \(splits.count))"
         self.splits.append((tag, splitTime))
         return splitTime
     }
@@ -68,16 +67,20 @@ struct StopWatch {
     
     /// Time elapsed since start of the stopwatch
     var elapsedTime: TimeValue {
-        guard startTimestamp > 0 && stopTimestamp > 0 else {
+        return elapsedTime(start: startTimestamp, end: stopTimestamp)
+    }
+
+    private func elapsedTime(start: UInt64, end: UInt64) -> TimeValue {
+        guard start > 0 && end > 0 && start < end else {
             return TimeValue.timeValueZero
         }
-        
-        let elapsed = ((stopTimestamp - startTimestamp) * numer!) / denom!
+
+        let elapsed = ((end - start) * numer!) / denom!
         return TimeValue(value: elapsed, type: .nanosecond)
     }
 
     func activeSplits(unit: TimeUnit = .nanosecond) -> [TimeEventDouble] {
-        return splits.map { ($0, $1.valueFor(unit: .nanosecond)) }
+        return splits.map { ($0, $1.valueFor(unit: unit)) }
     }
 
     func formattedTime(unit: TimeUnit) -> String {
@@ -90,8 +93,11 @@ struct StopWatch {
     private func currentTimeValue() -> TimeValue {
         return TimeValue(mach_absolute_time())
     }
-}
 
+    private func currentTimeNanoseconds() -> UInt64 {
+        return mach_absolute_time()
+    }
+}
 
 /// Time representation in seconds, milliseconds, nanoseconds
 enum TimeUnit {
@@ -185,7 +191,6 @@ protocol SwiftMeterable {
 }
 
 extension SwiftMeterable {
-
     func executionTimeInterval( block: @autoclosure () -> ()) -> CFTimeInterval {
         let start = CACurrentMediaTime()
         mach_absolute_time()
