@@ -45,9 +45,10 @@ struct StopWatch {
     }
 
     /// Stops countdown
-    mutating func stop() -> TimeValue {
-        stopTimestamp = mach_absolute_time()
-        return TimeValue(stopTimestamp)
+    mutating func stop() {
+        if (stopTimestamp == 0) {
+            stopTimestamp = mach_absolute_time()
+        }
     }
 
     mutating func split(_ eventTag: String? = nil) -> TimeValue {
@@ -179,7 +180,6 @@ extension TimeValue: Comparable {
 
 /// Log functions controlled by SwiftMeter
 class SwiftMeter {
-
     func startTimer() -> StopWatch {
         return StopWatch()
     }
@@ -187,23 +187,21 @@ class SwiftMeter {
 
 /// Benchmark protocol which is core for this class
 protocol SwiftMeterable {
-    func executionTimeInterval( block: @autoclosure () -> ()) -> CFTimeInterval
+    func executionTimeInterval(_ block: () -> ()) -> CFTimeInterval
 }
 
 extension SwiftMeterable {
-    func executionTimeInterval( block: @autoclosure () -> ()) -> CFTimeInterval {
-        let start = CACurrentMediaTime()
-        mach_absolute_time()
+    func executionTimeInterval(_ block: () -> ()) -> CFTimeInterval {
+        var stopwatch = StopWatch()
+        stopwatch.start()
         block();
-        let end = CACurrentMediaTime()
-        return end - start
+        stopwatch.stop()
+        return stopwatch.elapsedTime.valueFor(unit: .second)
     }
 }
 
 struct MeterPrint {
-    
     static var enabledLogging = true
-    
     public static func print(_ value: String) {
         if enabledLogging {
             print(value)
