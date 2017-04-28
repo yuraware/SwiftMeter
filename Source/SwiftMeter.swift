@@ -43,6 +43,10 @@ struct StopWatch {
         self.init(tag: tag)
     }
 
+    var isRunning: Bool {
+        return startTimestamp > 0 && stopTimestamp == 0
+    }
+
     /// Start a stopwatch instance
     mutating func start() {
         startTimestamp = mach_absolute_time()
@@ -50,21 +54,21 @@ struct StopWatch {
 
     /// Stops countdown
     mutating func stop() {
-        if (stopTimestamp == 0) {
+        if isRunning {
             stopTimestamp = mach_absolute_time()
         }
     }
 
     /// Pause countdown
     mutating func pause() {
-        if (stopTimestamp == 0) {
+        if isRunning {
             pauses.append((TimeValue.now(), true))
         }
     }
 
     /// Resume countdown
     mutating func resume() {
-        if (stopTimestamp == 0) {
+        if isRunning {
             pauses.append((TimeValue.now(), false))
         }
     }
