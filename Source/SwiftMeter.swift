@@ -15,14 +15,18 @@ fileprivate var denom: UInt64?
 
 struct StopWatch {
 
-    typealias TimeEvent = (String, TimeValue)
     typealias TimeEventDouble = (String, Double)
+    fileprivate typealias TimeEvent = (String, TimeValue)
+    fileprivate typealias TimeEventPause = (TimeValue, Bool) //$1 - when event, $2 - isPaused
+
 
     fileprivate var startTimestamp: UInt64 = 0
     fileprivate var stopTimestamp: UInt64 = 0
 
     fileprivate var tag: String?
     fileprivate var splits = [TimeEvent]()
+
+    fileprivate var pauses = [TimeEventPause]()
 
     init() {
         mach_timebase_info(&timebase_info)
@@ -48,6 +52,20 @@ struct StopWatch {
     mutating func stop() {
         if (stopTimestamp == 0) {
             stopTimestamp = mach_absolute_time()
+        }
+    }
+
+    /// Pause countdown
+    mutating func pause() {
+        if (stopTimestamp == 0) {
+            pauses.append((TimeValue.now(), true))
+        }
+    }
+
+    /// Resume countdown
+    mutating func resume() {
+        if (stopTimestamp == 0) {
+            pauses.append((TimeValue.now(), false))
         }
     }
 
@@ -89,10 +107,6 @@ struct StopWatch {
         let formattedTime = elapsedTime.valueFor(unit: unit)
         let tag = self.tag ?? "\(startTimestamp)"
         return "[Stopwatch - \(tag)] time elapsed - \(formattedTime) \(unit.unitName())"
-    }
-
-    private func currentTimeValue() -> TimeValue {
-        return TimeValue(mach_absolute_time())
     }
 
     private func currentTimeNanoseconds() -> UInt64 {
@@ -151,7 +165,11 @@ struct TimeValue {
                 return Double(value) / 1_000_000_000
         }
     }
-    
+
+    static func now() -> TimeValue {
+        return TimeValue(mach_absolute_time())
+    }
+
 }
 
 extension TimeValue: Equatable {
