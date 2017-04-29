@@ -21,7 +21,11 @@ class ViewController: UIViewController, SwiftMeterable {
             _ = stopwatch.split("first split")
             sleep(1)
             _ = stopwatch.split()
+
+            stopwatch.pause()
             sleep(3)
+            stopwatch.resume()
+
             _ = stopwatch.split("third split")
             sleep(1)
             stopwatch.stop()

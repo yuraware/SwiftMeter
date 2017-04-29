@@ -90,7 +90,29 @@ struct StopWatch {
     
     /// Time elapsed since start of the stopwatch
     var elapsedTime: TimeValue {
-        return elapsedTime(start: startTimestamp, end: stopTimestamp)
+
+
+        /*
+         for (index, value) in shoppingList.enumerated() {
+         print("Item \(index + 1): \(value)")
+         }
+
+         */
+        var pausedTime: UInt64 = 0
+        var pauseStarted = TimeValue.timeValueZero
+
+        for (_, value) in pauses.enumerated() {
+            if (value.1 == true) {
+                pauseStarted = value.0
+            }
+
+            if pauseStarted != TimeValue.timeValueZero && value.1 == false {
+                let pauseEnded = value.0
+                pausedTime += elapsedTime(start: pauseStarted.value, end: pauseEnded.value).value
+            }
+        }
+
+        return TimeValue(elapsedTime(start: startTimestamp, end: stopTimestamp).value - pausedTime)
     }
 
     private func elapsedTime(start: UInt64, end: UInt64) -> TimeValue {
@@ -138,7 +160,7 @@ struct TimeValue {
     static let timeValueZero = TimeValue(0)
 
     /// value in nanoseconds
-    private var value: UInt64 = 0
+    fileprivate var value: UInt64 = 0
 
     var type = TimeUnit.nanosecond
 
