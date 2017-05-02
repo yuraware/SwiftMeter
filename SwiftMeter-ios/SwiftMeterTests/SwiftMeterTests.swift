@@ -21,6 +21,42 @@ class SwiftMeterTests: XCTestCase {
         super.tearDown()
     }
 
+    func testIsRunning() {
+        var stopwatch = StopWatch()
+
+        stopwatch.start()
+        XCTAssertTrue(stopwatch.isRunning)
+
+        stopwatch.stop()
+        XCTAssertFalse(stopwatch.isRunning)
+
+    }
+
+    func testElapsedTime() {
+        var stopwatch = StopWatch()
+
+        let runningTime: UInt32 = 5
+
+        stopwatch.start()
+        sleep(runningTime)
+        stopwatch.stop()
+
+        let elapsedTimeInterval = stopwatch.elapsedTime.valueFor(unit: .second)
+
+        let runningTimeInterval = Double(runningTime)
+
+        XCTAssertTrue(elapsedTimeInterval > runningTimeInterval && elapsedTimeInterval < runningTimeInterval+1)
+    }
+
+    func testSplits() {
+        var stopwatch = StopWatch()
+        _ = stopwatch.split()
+        _ = stopwatch.split()
+        _ = stopwatch.split()
+
+        XCTAssertTrue(stopwatch.activeSplits().count == 3)
+    }
+
     func testValuesEquals() {
         let valueNanos = TimeValue.init(value: 1_000_000_000, type: .nanosecond)
         let valueMicros = TimeValue.init(value: 1_000_000, type: .microsecond)

@@ -20,6 +20,7 @@ struct StopWatch {
     fileprivate typealias TimeEventPause = (TimeValue, Bool) //$1 - when event, $2 - isPaused
 
 
+
     fileprivate var startTimestamp: UInt64 = 0
     fileprivate var stopTimestamp: UInt64 = 0
 
@@ -90,14 +91,6 @@ struct StopWatch {
     
     /// Time elapsed since start of the stopwatch
     var elapsedTime: TimeValue {
-
-
-        /*
-         for (index, value) in shoppingList.enumerated() {
-         print("Item \(index + 1): \(value)")
-         }
-
-         */
         var pausedTime: UInt64 = 0
         var pauseStarted = TimeValue.timeValueZero
 
