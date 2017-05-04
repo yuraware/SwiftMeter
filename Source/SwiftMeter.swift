@@ -157,9 +157,20 @@ struct TimeValue {
 
     var type = TimeUnit.nanosecond
 
-    /// respresents value in nanoseconds
     var nanoseconds: UInt64 {
         return value
+    }
+
+    var microseconds: Double {
+        return valueFor(unit: .microsecond)
+    }
+
+    var milliseconds: Double {
+        return valueFor(unit: .millisecond)
+    }
+
+    var seconds: Double {
+        return valueFor(unit: .second)
     }
 
     init(value: UInt64, type: TimeUnit) {
