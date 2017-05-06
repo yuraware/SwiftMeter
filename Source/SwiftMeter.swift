@@ -118,12 +118,12 @@ struct StopWatch {
     }
 
     func activeSplits(unit: TimeUnit = .nanosecond) -> [TimeEventDouble] {
-        return splits.map { ($0, $1.valueFor(unit: unit)) }
+        return splits.map { ($0, $1.value(of: unit)) }
     }
 
     func formattedTime(unit: TimeUnit) -> String {
         let elapsedTime = self.elapsedTime
-        let formattedTime = elapsedTime.valueFor(unit: unit)
+        let formattedTime = elapsedTime.value(of: unit)
         let tag = self.tag ?? "\(startTimestamp)"
         return "[Stopwatch - \(tag)] time elapsed - \(formattedTime) \(unit.unitName())"
     }
@@ -162,15 +162,15 @@ struct TimeValue {
     }
 
     var microseconds: Double {
-        return valueFor(unit: .microsecond)
+        return value(of: .microsecond)
     }
 
     var milliseconds: Double {
-        return valueFor(unit: .millisecond)
+        return value(of: .millisecond)
     }
 
     var seconds: Double {
-        return valueFor(unit: .second)
+        return value(of: .second)
     }
 
     init(value: UInt64, type: TimeUnit) {
@@ -183,8 +183,8 @@ struct TimeValue {
         self.type = .nanosecond
     }
     
-    func valueFor(unit: TimeUnit) -> Double {
-        switch unit {
+    func value(of: TimeUnit) -> Double {
+        switch of {
             case .nanosecond:
                 return Double(value)
             case .microsecond:
@@ -244,7 +244,7 @@ extension SwiftMeterable {
         stopwatch.start()
         block();
         stopwatch.stop()
-        return stopwatch.elapsedTime.valueFor(unit: .second)
+        return stopwatch.elapsedTime.value(of: .second)
     }
 }
 

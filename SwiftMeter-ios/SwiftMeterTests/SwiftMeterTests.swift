@@ -41,7 +41,7 @@ class SwiftMeterTests: XCTestCase {
         sleep(runningTime)
         stopwatch.stop()
 
-        let elapsedTimeInterval = stopwatch.elapsedTime.valueFor(unit: .second)
+        let elapsedTimeInterval = stopwatch.elapsedTime.value(of: .second)
 
         let runningTimeInterval = Double(runningTime)
 
@@ -63,9 +63,9 @@ class SwiftMeterTests: XCTestCase {
         let valueMillis = TimeValue.init(value: 1_000, type: .millisecond)
         let valueSeconds = TimeValue.init(value: 1, type: .second)
 
-        XCTAssertTrue(valueNanos.valueFor(unit: .nanosecond) != valueMicros.valueFor(unit: .nanosecond), "Microsecons wrong conversion")
-        XCTAssertTrue(valueNanos.valueFor(unit: .nanosecond) != valueMillis.valueFor(unit: .nanosecond), "Milliseconds wrong conversion")
-        XCTAssertTrue(valueNanos.valueFor(unit: .nanosecond) != valueSeconds.valueFor(unit: .nanosecond), "Seconds wrong conversion")
+        XCTAssertTrue(valueNanos.value(of: .nanosecond) != valueMicros.value(of: .nanosecond), "Microsecons wrong conversion")
+        XCTAssertTrue(valueNanos.value(of: .nanosecond) != valueMillis.value(of: .nanosecond), "Milliseconds wrong conversion")
+        XCTAssertTrue(valueNanos.value(of: .nanosecond) != valueSeconds.value(of: .nanosecond), "Seconds wrong conversion")
 
         XCTAssertTrue(valueNanos != valueMicros, "Microsecons wrong conversion")
         XCTAssertTrue(valueNanos != valueMillis, "Milliseconds wrong conversion")
