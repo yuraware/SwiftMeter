@@ -29,7 +29,6 @@ class SwiftMeterTests: XCTestCase {
 
         stopwatch.stop()
         XCTAssertFalse(stopwatch.isRunning)
-
     }
 
     func testElapsedTime() {
@@ -63,13 +62,19 @@ class SwiftMeterTests: XCTestCase {
         let valueMillis = TimeValue.init(value: 1_000, type: .millisecond)
         let valueSeconds = TimeValue.init(value: 1, type: .second)
 
-        XCTAssertTrue(valueNanos.value(of: .nanosecond) != valueMicros.value(of: .nanosecond), "Microsecons wrong conversion")
-        XCTAssertTrue(valueNanos.value(of: .nanosecond) != valueMillis.value(of: .nanosecond), "Milliseconds wrong conversion")
-        XCTAssertTrue(valueNanos.value(of: .nanosecond) != valueSeconds.value(of: .nanosecond), "Seconds wrong conversion")
+        XCTAssertTrue(valueNanos.value(of: .nanosecond) == valueMicros.value(of: .nanosecond), "Microsecons wrong conversion")
+        XCTAssertTrue(valueNanos.value(of: .nanosecond) == valueMillis.value(of: .nanosecond), "Milliseconds wrong conversion")
+        XCTAssertTrue(valueNanos.value(of: .nanosecond) == valueSeconds.value(of: .nanosecond), "Seconds wrong conversion")
 
-        XCTAssertTrue(valueNanos != valueMicros, "Microsecons wrong conversion")
-        XCTAssertTrue(valueNanos != valueMillis, "Milliseconds wrong conversion")
-        XCTAssertTrue(valueNanos != valueSeconds, "Seconds wrong conversion")
+        XCTAssertTrue(valueNanos == valueMicros, "Microsecons wrong conversion")
+        XCTAssertTrue(valueNanos == valueMillis, "Milliseconds wrong conversion")
+        XCTAssertTrue(valueNanos == valueSeconds, "Seconds wrong conversion")
+
+        print("this seconds \(valueSeconds.seconds), micros \(valueMicros.seconds)")
+        XCTAssertTrue(valueSeconds.seconds == valueMicros.seconds, "Nanoseconds wrong conversion")
+        XCTAssertTrue(valueSeconds.microseconds == valueMicros.microseconds, "Microseconds wrong conversion")
+        XCTAssertTrue(valueSeconds.milliseconds == valueMillis.milliseconds, "milliseconds wrong conversion")
+        XCTAssertTrue(valueSeconds.seconds == valueNanos.seconds, "Seconds wrong conversion")
     }
 
     func testValuesCompares() {

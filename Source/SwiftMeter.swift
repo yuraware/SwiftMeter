@@ -174,7 +174,18 @@ struct TimeValue {
     }
 
     init(value: UInt64, type: TimeUnit) {
-        self.value = value
+
+        switch type {
+            case .nanosecond:
+                self.value = value
+            case .microsecond:
+                self.value = value * 1_000
+            case .millisecond:
+                self.value = value * 1_000_000
+            case .second:
+                self.value = value * 1_000_000_000
+        }
+
         self.type = type
     }
 
