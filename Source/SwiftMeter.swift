@@ -150,6 +150,10 @@ enum TimeUnit {
 /// Time value with type (representation). The milliseconds is default
 struct TimeValue {
 
+    private let microsecondsInSecond: UInt64 = 1_000
+    private let millisecondsInSecond: UInt64 = 1_000_000
+    private let nanosecondsInSecond: UInt64 = 1_000_000_000
+
     static let timeValueZero = TimeValue(0)
 
     /// value in nanoseconds
@@ -179,11 +183,11 @@ struct TimeValue {
             case .nanosecond:
                 self.value = value
             case .microsecond:
-                self.value = value * 1_000
+                self.value = value * microsecondsInSecond
             case .millisecond:
-                self.value = value * 1_000_000
+                self.value = value * millisecondsInSecond
             case .second:
-                self.value = value * 1_000_000_000
+                self.value = value * nanosecondsInSecond
         }
 
         self.type = type
@@ -199,11 +203,11 @@ struct TimeValue {
             case .nanosecond:
                 return Double(value)
             case .microsecond:
-                return Double(value) / 1_000
+                return Double(value) / Double(microsecondsInSecond)
             case .millisecond:
-                return Double(value) / 1_000_000
+                return Double(value) / Double(millisecondsInSecond)
             case .second:
-                return Double(value) / 1_000_000_000
+                return Double(value) / Double(nanosecondsInSecond)
         }
     }
 
