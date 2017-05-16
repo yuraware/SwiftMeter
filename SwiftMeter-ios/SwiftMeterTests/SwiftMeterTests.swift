@@ -13,12 +13,53 @@ class SwiftMeterTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+    }
+
+
+    func testIsRunning() {
+        var stopwatch = StopWatch()
+
+        stopwatch.start()
+        XCTAssertTrue(stopwatch.isRunning)
+
+        stopwatch.stop()
+        XCTAssertFalse(stopwatch.isRunning)
+    }
+
+    func testElapsedTime() {
+        var stopwatch = StopWatch()
+
+        let runningTime: UInt32 = 5
+
+        stopwatch.start()
+        sleep(runningTime)
+        stopwatch.stop()
+
+        let elapsedTimeInterval = stopwatch.elapsedTime.timeinterval(unit: .second)
+
+        let runningTimeInterval = Double(runningTime)
+
+        XCTAssertTrue(elapsedTimeInterval > runningTimeInterval && elapsedTimeInterval < runningTimeInterval+1)
+    }
+
+    func testSplits() {
+        var stopwatch = StopWatch()
+        _ = stopwatch.split()
+        _ = stopwatch.split()
+        _ = stopwatch.split()
+
+        XCTAssertTrue(stopwatch.activeSplits().count == 3)
+    }
+
+    func testTimeValues() {
+        let value = TimeValue.init(value: 1, type: .second)
+        XCTAssertTrue(value.milliseconds == 1_000)
+        XCTAssertTrue(value.microseconds == 1_000_000)
+        XCTAssertTrue(value.nanoseconds == 1_000_000_000)
     }
 
     func testValuesEquals() {
@@ -47,17 +88,4 @@ class SwiftMeterTests: XCTestCase {
         XCTAssertTrue(value3 <= value4)
         XCTAssertTrue(value4 >= value3)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

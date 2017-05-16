@@ -19,7 +19,6 @@ struct StopWatch {
     fileprivate typealias TimeEvent = (String, TimeValue)
     fileprivate typealias TimeEventPause = (TimeValue, Bool) //$1 - when event, $2 - isPaused
 
-
     fileprivate var startTimestamp: UInt64 = 0
     fileprivate var stopTimestamp: UInt64 = 0
 
@@ -90,14 +89,6 @@ struct StopWatch {
     
     /// Time elapsed since start of the stopwatch
     var elapsedTime: TimeValue {
-
-
-        /*
-         for (index, value) in shoppingList.enumerated() {
-         print("Item \(index + 1): \(value)")
-         }
-
-         */
         var pausedTime: UInt64 = 0
         var pauseStarted = TimeValue.timeValueZero
 
@@ -125,12 +116,12 @@ struct StopWatch {
     }
 
     func activeSplits(unit: TimeUnit = .nanosecond) -> [TimeEventDouble] {
-        return splits.map { ($0, $1.valueFor(unit: unit)) }
+        return splits.map { ($0, $1.timeinterval(unit: unit)) }
     }
 
     func formattedTime(unit: TimeUnit) -> String {
         let elapsedTime = self.elapsedTime
-        let formattedTime = elapsedTime.valueFor(unit: unit)
+        let formattedTime = elapsedTime.timeinterval(unit: unit)
         let tag = self.tag ?? "\(startTimestamp)"
         return "[Stopwatch - \(tag)] time elapsed - \(formattedTime) \(unit.unitName())"
     }
@@ -164,9 +155,21 @@ struct TimeValue {
 
     var type = TimeUnit.nanosecond
 
-    /// respresents value in nanoseconds
+    /// represents value in nanoseconds
     var nanoseconds: UInt64 {
         return value
+    }
+
+    var microseconds: UInt64 {
+        return valueFor(unit: .microsecond)
+    }
+
+    var milliseconds: UInt64 {
+        return valueFor(unit: .millisecond)
+    }
+
+    var seconds: UInt64 {
+        return valueFor(unit: .second)
     }
 
     init(value: UInt64, type: TimeUnit) {
@@ -179,7 +182,7 @@ struct TimeValue {
         self.type = .nanosecond
     }
     
-    func valueFor(unit: TimeUnit) -> Double {
+    func timeinterval(unit: TimeUnit) -> Double {
         switch unit {
             case .nanosecond:
                 return Double(value)
@@ -189,6 +192,19 @@ struct TimeValue {
                 return Double(value) / 1_000_000
             case .second:
                 return Double(value) / 1_000_000_000
+        }
+    }
+
+    func valueFor(unit: TimeUnit) -> UInt64 {
+        switch unit {
+        case .nanosecond:
+            return value
+        case .microsecond:
+            return value / 1_000
+        case .millisecond:
+            return value / 1_000_000
+        case .second:
+            return value / 1_000_000_000
         }
     }
 
@@ -240,7 +256,7 @@ extension SwiftMeterable {
         stopwatch.start()
         block();
         stopwatch.stop()
-        return stopwatch.elapsedTime.valueFor(unit: .second)
+        return stopwatch.elapsedTime.timeinterval(unit: .second)
     }
 }
 
