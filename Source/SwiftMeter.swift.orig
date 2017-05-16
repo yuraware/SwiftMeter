@@ -19,6 +19,11 @@ struct StopWatch {
     fileprivate typealias TimeEvent = (String, TimeValue)
     fileprivate typealias TimeEventPause = (TimeValue, Bool) //$1 - when event, $2 - isPaused
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
     fileprivate var startTimestamp: UInt64 = 0
     fileprivate var stopTimestamp: UInt64 = 0
 
@@ -116,12 +121,20 @@ struct StopWatch {
     }
 
     func activeSplits(unit: TimeUnit = .nanosecond) -> [TimeEventDouble] {
+<<<<<<< HEAD
         return splits.map { ($0, $1.timeinterval(unit: unit)) }
+=======
+        return splits.map { ($0, $1.value(of: unit)) }
+>>>>>>> origin/master
     }
 
     func formattedTime(unit: TimeUnit) -> String {
         let elapsedTime = self.elapsedTime
+<<<<<<< HEAD
         let formattedTime = elapsedTime.timeinterval(unit: unit)
+=======
+        let formattedTime = elapsedTime.value(of: unit)
+>>>>>>> origin/master
         let tag = self.tag ?? "\(startTimestamp)"
         return "[Stopwatch - \(tag)] time elapsed - \(formattedTime) \(unit.unitName())"
     }
@@ -159,10 +172,15 @@ struct TimeValue {
 
     var type = TimeUnit.nanosecond
 
+<<<<<<< HEAD
+    /// represents value in nanoseconds
+=======
+>>>>>>> origin/master
     var nanoseconds: UInt64 {
         return value
     }
 
+<<<<<<< HEAD
     var microseconds: UInt64 {
         return valueFor(unit: .microsecond)
     }
@@ -173,6 +191,18 @@ struct TimeValue {
 
     var seconds: UInt64 {
         return valueFor(unit: .second)
+=======
+    var microseconds: Double {
+        return value(of: .microsecond)
+    }
+
+    var milliseconds: Double {
+        return value(of: .millisecond)
+    }
+
+    var seconds: Double {
+        return value(of: .second)
+>>>>>>> origin/master
     }
 
     init(value: UInt64, type: TimeUnit) {
@@ -196,8 +226,13 @@ struct TimeValue {
         self.type = .nanosecond
     }
     
+<<<<<<< HEAD
     func timeinterval(unit: TimeUnit) -> Double {
         switch unit {
+=======
+    func value(of: TimeUnit) -> Double {
+        switch of {
+>>>>>>> origin/master
             case .nanosecond:
                 return Double(value)
             case .microsecond:
@@ -270,7 +305,11 @@ extension SwiftMeterable {
         stopwatch.start()
         block();
         stopwatch.stop()
+<<<<<<< HEAD
         return stopwatch.elapsedTime.timeinterval(unit: .second)
+=======
+        return stopwatch.elapsedTime.value(of: .second)
+>>>>>>> origin/master
     }
 }
 
