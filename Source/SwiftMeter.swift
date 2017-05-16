@@ -214,11 +214,11 @@ struct TimeValue {
         case .nanosecond:
             return value
         case .microsecond:
-            return value / 1_000
+            return value / microsecondsInSecond
         case .millisecond:
-            return value / 1_000_000
+            return value / millisecondsInSecond
         case .second:
-            return value / 1_000_000_000
+            return value / nanosecondsInSecond
         }
     }
 
