@@ -18,6 +18,8 @@ struct StopWatch {
     typealias TimeEventDouble = (String, Double)
     fileprivate typealias TimeEvent = (String, TimeValue)
     fileprivate typealias TimeEventPause = (TimeValue, Bool) //$1 - when event, $2 - isPaused
+    
+    fileprivate typealias WarnEvent = (String, TimeValue)
 
     fileprivate var startTimestamp: UInt64 = 0
     fileprivate var stopTimestamp: UInt64 = 0
@@ -129,6 +131,11 @@ struct StopWatch {
     private func currentTimeNanoseconds() -> UInt64 {
         return mach_absolute_time()
     }
+    
+    func warnWithTimeLapsed(value: TimeValue) {
+        
+    }
+    
 }
 
 /// Time representation in seconds, milliseconds, nanoseconds
