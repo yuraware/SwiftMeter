@@ -415,6 +415,7 @@
 				81D82FD81E983C3E0016568E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		81EACFC61E8C5CA900741057 /* Build configuration list for PBXProject "SwiftMeter" */ = {
 			isa = XCConfigurationList;

@@ -17,7 +17,7 @@ struct StopWatch {
 
     typealias TimeEventDouble = (String, Double)
     fileprivate typealias TimeEvent = (String, TimeValue)
-    fileprivate typealias TimeEventPause = (TimeValue, Bool) //$1 - when event, $2 - isPaused
+    fileprivate typealias TimeEventPause = (TimeValue, Bool) //$1 - when event has paused, $2 - isPaused
     
     fileprivate typealias WarnEvent = (String, TimeValue)
 
